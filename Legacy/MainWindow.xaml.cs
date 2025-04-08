@@ -27,7 +27,7 @@ namespace Arcane_Launcher
             InitializeComponent();
             Utils.Globals.MainFrame = MainFrame;
 
-            Utils.Globals.DiscordRpcClient = new DiscordRpcClient("1357677873317810237");
+            Utils.Globals.DiscordRpcClient = new DiscordRpcClient("1359221983576981566");
 
             Utils.Globals.DiscordRpcClient.OnReady += (sender, e) =>
             {
@@ -55,8 +55,8 @@ namespace Arcane_Launcher
                 Timestamps = Timestamps.Now,
                 Assets = new Assets
                 {
-                    LargeImageKey = "https://avatars.githubusercontent.com/u/202678516",
-                    LargeImageText = "Legacy",
+                    LargeImageKey = "https://avatars.githubusercontent.com/u/206445554",
+                    LargeImageText = "Phase",
                 },
 
                 Buttons = new DiscordRPC.Button[]
@@ -64,12 +64,7 @@ namespace Arcane_Launcher
                     new DiscordRPC.Button()
                     {
                         Label = "Join Legacy!",
-                        Url = "https://discord.gg/3AP942Wc96"
-                    },
-                    new DiscordRPC.Button()
-                    {
-                        Label = "View our github!",
-                        Url = "https://github.com/Legacy-OG"
+                        Url = "https://discord.gg/CKxQCc8EzH"
                     }
                 }
             };

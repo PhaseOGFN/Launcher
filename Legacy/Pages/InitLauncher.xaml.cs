@@ -17,7 +17,7 @@ namespace Arcane_Launcher.Pages
     /// </summary>
     public partial class InitLauncher : Page
     {
-        private string domain = "http://127.0.0.1:3551";
+        private string domain = "http://legacy-service-prod.ol.evolvefn.com:3551";
         private static readonly HttpClient httpClient = new HttpClient();
 
         public InitLauncher()

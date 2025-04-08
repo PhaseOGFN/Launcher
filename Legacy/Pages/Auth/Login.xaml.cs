@@ -28,7 +28,6 @@ namespace Arcane_Launcher.Pages.Auth
         {
             InitializeComponent();
             AuthorizationCodeBox.TextChanged += AuthorizationCodeBox_TextChanged;
-            MessageBox.Show($"", "Phase | Authenticate", MessageBoxButton.OK, MessageBoxImage.Information); // to get auth code will be a thing in dsc server
         }
 
         private void AuthorizationCodeBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -68,8 +67,7 @@ namespace Arcane_Launcher.Pages.Auth
             else
             {
                 Utils.Logger.error("Could not get access token!");
-                MessageBox.Show($"Unable to login, If you are having issues please make sure you are logged into epic games on your browser then try again!", "Legacy | Authenticate", MessageBoxButton.OK, MessageBoxImage.Warning);
-                MessageBox.Show($"", "Phase | Authenticate", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show($"Unable to login, If you are having issues please make sure you got the code from the /getcode command!", "Legacy | Authenticate", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

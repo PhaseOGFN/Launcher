@@ -1,10 +1,10 @@
 [Setup]
-AppName=Legacy
+AppName=Phase
 AppVersion=0.09
-DefaultDirName={userdocs}\Legacy Launcher
-DefaultGroupName=Legacy Launcher
+DefaultDirName={userdocs}\Phase Launcher
+DefaultGroupName=Phase Launcher
 OutputDir=..\Output
-OutputBaseFilename=LegacyLauncher_0.09_x64_en-US
+OutputBaseFilename=PhaseLauncher_0.01_x64_en-US
 Compression=lzma
 SolidCompression=yes
 PrivilegesRequired=lowest
@@ -19,8 +19,8 @@ Source: "..\Legacy\bin\release\net8.0-windows\*"; DestDir: "{app}"; Flags: ignor
 Source: "..\Legacy\Resources\*"; DestDir: "{app}\Resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{userdesktop}\Legacy Launcher"; Filename: "{app}\Legacy.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Resources\legacy.ico"; IconIndex: 0
-Name: "{group}\Legacy Launcher"; Filename: "{app}\Legacy.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Resources\legacy.ico"; IconIndex: 0
+Name: "{userdesktop}\Phase Launcher"; Filename: "{app}\Phase.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Resources\legacy.ico"; IconIndex: 0
+Name: "{group}\Phase Launcher"; Filename: "{app}\Phase.exe"; WorkingDir: "{app}"; IconFilename: "{app}\Resources\legacy.ico"; IconIndex: 0
 
 [Run]
-Filename: "{app}\Legacy.exe"; Description: "Launch Legacy"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\Phase.exe"; Description: "Launch Phase"; Flags: nowait postinstall skipifsilent

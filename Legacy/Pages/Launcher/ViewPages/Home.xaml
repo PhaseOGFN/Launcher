@@ -45,8 +45,8 @@
                         <Border Background="#000000AA" VerticalAlignment="Bottom" Height="80">
                             <Border Opacity="0.9" Margin="8" CornerRadius="10" Background="#232323">
                                 <StackPanel Margin="5">
-                                    <TextBlock Text="Legacy" FontSize="16" FontWeight="Bold" Foreground="White"/>
-                                    <TextBlock Text="Welcome to Legacy!" FontSize="12" Foreground="White"/>
+                                    <TextBlock Text="Phase" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                    <TextBlock Text="Welcome to Phase!" FontSize="12" Foreground="White"/>
                                 </StackPanel>
                             </Border>
                         </Border>
