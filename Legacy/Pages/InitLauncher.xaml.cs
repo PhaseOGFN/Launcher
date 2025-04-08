@@ -9,7 +9,6 @@ using Arcane_Launcher.Responses.Lightswitch;
 using Arcane_Launcher.Utils;
 using Arcane_Launcher.Services;
 using System.Reflection;
-using DiscordRPC;
 
 namespace Arcane_Launcher.Pages
 {
@@ -18,7 +17,7 @@ namespace Arcane_Launcher.Pages
     /// </summary>
     public partial class InitLauncher : Page
     {
-        private string domain = "http://legacy-service-prod.ol.evolvefn.com:3551";
+        private string domain = "http://127.0.0.1:3551";
         private static readonly HttpClient httpClient = new HttpClient();
 
         public InitLauncher()
@@ -30,42 +29,72 @@ namespace Arcane_Launcher.Pages
         private async Task SetupLauncher()
         {
             Utils.Logger.good($"Execution Path: {System.IO.Path.ChangeExtension(Assembly.GetExecutingAssembly().Location, ".exe")}");
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.GamePath))
+            LightswitchStatus status = await GetLightswitchStatusAsync();
+            if (status != null)
             {
-                if (System.IO.File.Exists(System.IO.Path.Combine(Properties.Settings.Default.GamePath, "FortniteGame\\Content\\Splash", "Splash.bmp")))
+                if (status.Status == "UP")
                 {
-                    System.IO.File.Copy(
-                        System.IO.Path.Combine(Properties.Settings.Default.GamePath, "FortniteGame\\Content\\Splash", "Splash.bmp"),
-                        System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources"), "Splash.bmp"),
-                        overwrite: true
-                    );
-                }
-                else
-                {
-                    Utils.Logger.warn("No splash image found!");
-                }
-            }
+                    LoadingText.Text = "Status: UP";
+                    LoadingText.Text = status.Message;
+                    LoadingText.Text = "AppName: " + status.LauncherInfoDTO.AppName;
 
-            if (!string.IsNullOrEmpty(Properties.Settings.Default.access_token) && !string.IsNullOrEmpty(Properties.Settings.Default.refresh_token))
-            {
-                JObject json = await Authentication.RefreshToken(Properties.Settings.Default.refresh_token);
-                if (json.ContainsKey("access_token"))
-                {
-                    Utils.Globals.DiscordPresence.Details = "Selecting Game Build...";
-                    Utils.Globals.DiscordPresence.State = $"Logged in as {Properties.Settings.Default.displayName}";
-                    Utils.Globals.DiscordRpcClient.SetPresence(Utils.Globals.DiscordPresence);
-                    Utils.Globals.MainFrame.Navigate(new Pages.Launcher.MainView());
+                    if (Window.GetWindow(this) is Window window)
+                    {
+                        window.Title = "Launcher - " + status.LauncherInfoDTO.AppName;
+                    }
+
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.GamePath))
+                    {
+                        if (System.IO.File.Exists(System.IO.Path.Combine(Properties.Settings.Default.GamePath, "FortniteGame\\Content\\Splash", "Splash.bmp")))
+                        {
+                            System.IO.File.Copy(
+                                System.IO.Path.Combine(Properties.Settings.Default.GamePath, "FortniteGame\\Content\\Splash", "Splash.bmp"),
+                                System.IO.Path.Combine(System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Resources"), "Splash.bmp"),
+                                overwrite: true
+                            );
+
+                            if (Properties.Settings.Default.Season <= 29 && Properties.Settings.Default.Season >= 5)
+                            {
+                                System.IO.File.Copy(
+                                    System.IO.Path.Combine(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "GFSDK_Aftermath_Lib.x64.dll"),
+                                    System.IO.Path.Combine(Properties.Settings.Default.GamePath, "Engine\\Binaries\\ThirdParty\\NVIDIA\\NVaftermath\\Win64", "GFSDK_Aftermath_Lib.x64.dll"),
+                                    overwrite: true
+                                );
+                            }
+                        }
+                        else
+                        {
+                            Utils.Logger.warn("No splash image found!");
+                        }
+                    }
+
+                    if (!string.IsNullOrEmpty(Properties.Settings.Default.access_token) && !string.IsNullOrEmpty(Properties.Settings.Default.refresh_token))
+                    {
+                        JObject json = await Authentication.RefreshToken(Properties.Settings.Default.refresh_token);
+                        if (json.ContainsKey("access_token"))
+                        {
+                            Utils.Globals.MainFrame.Navigate(new Pages.Launcher.MainView());
+                        }
+                        else
+                        {
+                            Utils.Logger.warn("Could not refresh token!");
+                            ShowErrorOverlay(json["errorCode"]?.ToString(), json["errorMessage"]?.ToString());
+                            Utils.Globals.MainFrame.Navigate(new Pages.Auth.Login());
+                        }
+                    }
+                    else
+                    {
+                        Utils.Globals.MainFrame.Navigate(new Pages.Auth.Login());
+                    }
                 }
                 else
                 {
-                    Utils.Logger.warn("Could not refresh token!");
-                    ShowErrorOverlay(json["errorCode"]?.ToString(), json["errorMessage"]?.ToString());
-                    Utils.Globals.MainFrame.Navigate(new Pages.Auth.Login());
+                    ShowErrorOverlay("Launcher Down!", "Sorry, the launcher is currently down for maintainance, Check back later!");
                 }
             }
             else
             {
-                Utils.Globals.MainFrame.Navigate(new Pages.Auth.Login());
+                ShowErrorOverlay("Error", "Failed to get launcher status");
             }
         }
 

@@ -76,7 +76,7 @@ namespace Arcane_Launcher.Services
                 {
                     StartInfo = new ProcessStartInfo()
                     {
-                        Arguments = $"-obfuscationid=FkXUUTiM6yKaZo48nEKh6Vi4KpKMVQ -AUTH_LOGIN=unused -AUTH_PASSWORD={ExchangeCode} AUTH_TYPE=exchangecode " + Args,
+                        Arguments = $"-AUTH_LOGIN=unused -AUTH_PASSWORD={ExchangeCode} AUTH_TYPE=exchangecode " + Args,
                         FileName = Path.Combine(GamePath, "FortniteGame\\Binaries\\Win64\\", "FortniteClient-Win64-Shipping.exe")
                     },
                     EnableRaisingEvents = true
@@ -84,7 +84,7 @@ namespace Arcane_Launcher.Services
                 LaunchService.FortniteGame.Exited += new EventHandler(LaunchService.OnFortniteExit);
                 LaunchService.FortniteGame.Start();
                 Utils.Logger.good("Successfully launched the fortnite game client!");
-                if (Properties.Settings.Default.Season < 5)
+                if (Properties.Settings.Default.Season < 30)
                 {
                     DllInjector.InjectDLL(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "GFSDK_Aftermath_Lib.x64.dll"), LaunchService.FortniteGame);
                 }

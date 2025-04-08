@@ -15,7 +15,7 @@ namespace Arcane_Launcher.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token";
+                string url = "http://127.0.0.1:3551/account/api/oauth/token";
 
                 var requestData = new FormUrlEncodedContent(new[]
                 {
@@ -59,7 +59,7 @@ namespace Arcane_Launcher.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/verify";
+                string url = "http://127.0.0.1:3551/account/api/oauth/verify";
 
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {Properties.Settings.Default.access_token}");
 
@@ -82,7 +82,7 @@ namespace Arcane_Launcher.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://account-public-service-prod03.ol.epicgames.com/account/api/oauth/exchange";
+                string url = "http://127.0.0.1:3551/account/api/oauth/exchange";
 
                 client.DefaultRequestHeaders.Add("Authorization", $"bearer {AccessToken}");
 
@@ -106,7 +106,7 @@ namespace Arcane_Launcher.Services
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = "https://account-public-service-prod.ol.epicgames.com/account/api/oauth/token";
+                string url = "http://127.0.0.1:3551/account/api/oauth/token";
 
                 var requestData = new FormUrlEncodedContent(new[]
                 {
