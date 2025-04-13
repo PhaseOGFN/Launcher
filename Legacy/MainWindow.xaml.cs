@@ -63,7 +63,7 @@ namespace Arcane_Launcher
                 {
                     new DiscordRPC.Button()
                     {
-                        Label = "Join Legacy!",
+                        Label = "Join Phase!",
                         Url = "https://discord.gg/CKxQCc8EzH"
                     }
                 }
